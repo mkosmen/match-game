@@ -1,0 +1,38 @@
+<div class="flex flex-col mx-auto bg-gray-950 text-white relative min-h-screen">
+  <div class="fixed top-0 left-0 mx-auto w-full p-3 flex justify-center z-1 bg-gray-950">
+    <div class="md:max-w-5xl flex items-center justify-between w-full px-2">
+      <a routerLink="/" class="p-3 bg-gray-800 text-white rounded-md">
+        BACK
+      </a>
+      <span>Total Attempt : {{ totalAttempts() }}</span>
+      <span>Time : {{ toTime() }} </span>
+    </div>
+  </div>
+  <main class="mt-12 md:max-w-5xl mx-auto flex-1 flex justify-center items-center relative">
+    <div [ngClass]="{'w-full flex flex-wrap': true, 'blur-sm': checkAllSelected()}">
+      @for (item of numbers(); track $index) {
+      <span class="flex min-w-30 max-w-30 w-30 h-30 p-2 relative">
+        <div [ngClass]="{
+            'border border-white rounded flex items-center justify-center w-full h-full text-center': true,
+            'bg-gray-200 text-gray-800 font-bold text-3xl! cursor-not-allowed!': isSelected($index),
+            'bg-green-800 text-gray-300! font-bold opacity-35 text-3xl! cursor-not-allowed': isInMatched($index),
+            'hover:bg-gray-700 transition-all cursor-pointer text-sm' : !isInMatched($index) && !isSelected($index),
+            'opacity-20' : selectedOff() && !isSelected($index)
+          }" (click)="onClickHandler($index)">
+          {{ (isInMatched($index) || isSelected($index)) ? item : 'Click to Turn' }}
+        </div>
+      </span>
+      }
+    </div>
+
+    @if(checkAllSelected()) {
+    <div class="absolute flex flex-col w-full h-full justify-center items-center bg-gray-800/40 opacity-95">
+      <p class="mb-5">You have completed the game in {{ timeOfGame() }} with {{ totalAttempts() }} attempts</p>
+
+      <button class="p-3 bg-amber-700 text-white rounded-lg" (click)="startGameAgain()">
+        START AGAIN
+      </button>
+    </div>
+    }
+  </main>
+</div>
