@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { sleep, getTimeOf } from '../../util';
 import { RouterLink } from '@angular/router';
 
-const CARD_COUNT = 2;
+const CARD_COUNT = 18;
 
 @Component({
   selector: 'app-game',
